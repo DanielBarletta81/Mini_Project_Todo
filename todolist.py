@@ -10,14 +10,55 @@
 #  4. Delete a task
 #  5. Quit
 
+
+
+tasks = []
+status = "Incomplete"
+
 def add_task():
-       pass
+       
+       
+       task =  input("What task would you like to add? ")
+    
+       
+       tasks.append(task)
+       print(f'Task added successfully!')
+
 def view_tasks():
-       pass
+       
+       if len(tasks) == 0:
+             print("No tasks to display.")
+       else:
+             print("Current list of tasks: ")
+             for i, task in enumerate(tasks):
+                   print(f'{i +1} {task}   {status}')
+
 def mark_task_complete():
        pass
+       if len(tasks) == 0:
+             print("No tasks to mark complete.")
+       else:
+             print("Current list of tasks: ")
+             for i, task in enumerate(tasks):
+                   print(f'{i +1}. {task}')
+
 def delete_task():
-       pass
+       
+       if len(tasks) == 0:
+             print("No tasks to delete.")
+       else:
+          
+             for i, task in enumerate(tasks):
+                   print(f'{i +1}. {task}')
+                   task_to_delete = int(input("Which task would you like to delete? "))
+                   task_to_delete = task_to_delete - 1
+
+                   if 0 < task_to_delete <= len(tasks):
+                         tasks.pop(task_to_delete)
+                         print("Task deleted successfully! ")
+                         break
+                   else:
+                         print("Please enter a valid task to delete. ")
 
 
 def interface():
@@ -30,7 +71,7 @@ def interface():
                 print(" 4. Delete  a task")
                 print(" 5. Quit")
 
-                choice = int(input("Please select a choice (1-5)."))
+                choice = int(input("Please select a choice (1-5). "))
 
                 if choice == 1:
                     add_task()
