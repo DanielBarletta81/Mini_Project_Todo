@@ -13,15 +13,13 @@
 
 
 tasks = []
-status = "Incomplete"
+
 
 def add_task():
        
-       
        task =  input("What task would you like to add? ")
     
-       
-       tasks.append(task)
+       tasks.append({ "title": task, "status": "Incomplete" })
        print(f'Task added successfully!')
 
 def view_tasks():
@@ -31,33 +29,47 @@ def view_tasks():
        else:
              print("Current list of tasks: ")
              for i, task in enumerate(tasks):
-                   print(f'{i +1} {task}   {status}')
+                   status = "Incomplete" if task["status"] else "Completed"
+                   print(f'{i +1} {task} ')
 
 def mark_task_complete():
-       pass
+    
+       
        if len(tasks) == 0:
              print("No tasks to mark complete.")
        else:
              print("Current list of tasks: ")
+
              for i, task in enumerate(tasks):
-                   print(f'{i +1}. {task}')
+                  print(f'{i +1}. {task}')
+                
+             mark_complete = int(input("Which task would you like to mark complete? ")) - 1 
+
+             if  0 <= mark_complete <= len(tasks):
+                         tasks[mark_complete]["status"] = 'Completed'
+                         
+                         print(f'Task successfully marked complete.')
+    
+             else:
+                         print("Please enter a valid task to mark complete. ")
 
 def delete_task():
        
        if len(tasks) == 0:
              print("No tasks to delete.")
        else:
-          
-             for i, task in enumerate(tasks):
+         
+            for i, task in enumerate(tasks):
                    print(f'{i +1}. {task}')
-                   task_to_delete = int(input("Which task would you like to delete? "))
-                   task_to_delete = task_to_delete - 1
+                   
+            task_to_delete = int(input("Which task would you like to delete? "))
+            task_to_delete = task_to_delete - 1
 
-                   if 0 < task_to_delete <= len(tasks):
-                         tasks.pop(task_to_delete)
-                         print("Task deleted successfully! ")
-                         break
-                   else:
+            if 0 < task_to_delete <= len(tasks):
+                    tasks.pop(task_to_delete)
+                    print("Task deleted successfully! ")
+                 
+            else:
                          print("Please enter a valid task to delete. ")
 
 
