@@ -14,12 +14,19 @@
 
 tasks = []
 
+#Error Handling:
+#Implement error handling using try, except, else, 
+# and finally blocks to handle potential issues.
 
 def add_task():
-       
-       task =  input("What task would you like to add? ")
-    
-       tasks.append({ "title": task, "status": "Incomplete" })
+    try:
+        task =  input("What task would you like to add? ")
+        tasks.append({ "title": task, "status": "Incomplete" })
+
+    except ValueError:
+        print(ValueError)
+
+    finally:
        print(f'Task added successfully!')
 
 def view_tasks():
@@ -33,27 +40,31 @@ def view_tasks():
                    print(f'{i +1} {task} ')
 
 def mark_task_complete():
+    try:
     
-       
-       if len(tasks) == 0:
-             print("No tasks to mark complete.")
-       else:
-             print("Current list of tasks: ")
+      if len(tasks) == 0:
+        print("No tasks to mark complete.")
+      else:
+        print("Current list of tasks: ")
+        for i, task in enumerate(tasks):
+         print(f'{i +1}. {task}')
 
-             for i, task in enumerate(tasks):
-                  print(f'{i +1}. {task}')
-                
-             mark_complete = int(input("Which task would you like to mark complete? ")) - 1 
+        mark_complete = int(input("Which task would you like to mark complete? ")) - 1 
 
-             if  0 <= mark_complete <= len(tasks):
-                         tasks[mark_complete]["status"] = 'Completed'
-                         
-                         print(f'Task successfully marked complete.')
-    
-             else:
-                         print("Please enter a valid task to mark complete. ")
+        if  0 <= mark_complete <= len(tasks):
 
+                tasks[mark_complete]["status"] = 'Completed'
+                print(f'Task successfully marked complete.') 
+        
+        else:
+                print("Please enter a valid task to mark complete. ")
+
+    except ValueError:
+        print(f'An error occurred. Make sure to only enter numbers!')
+        
+                  
 def delete_task():
+    try:
        
        if len(tasks) == 0:
              print("No tasks to delete.")
@@ -66,14 +77,17 @@ def delete_task():
             task_to_delete = task_to_delete - 1
 
             if 0 < task_to_delete <= len(tasks):
-                    tasks.pop(task_to_delete)
-                    print("Task deleted successfully! ")
+                    tasks.remove(task_to_delete)
+                    print(f'Task deleted successfully!' )
                  
             else:
                          print("Please enter a valid task to delete. ")
+    except ValueError:
+         print("Please be sure to enter numbers only.")
 
 
 def interface():
+    try:
         while True:
                 print(" **** Welcome to your Todo Application ****")
                 print(" Menu: ")
@@ -82,6 +96,7 @@ def interface():
                 print(" 3. Mark a task complete")
                 print(" 4. Delete  a task")
                 print(" 5. Quit")
+
 
                 choice = int(input("Please select a choice (1-5). "))
 
@@ -96,4 +111,10 @@ def interface():
                 else:
                       print("Thank you for using the Todo application!")
                       break
+    except ValueError:
+        print("Please enter a valid choice, numbers only.")
+        if ValueError:
+             interface()  # restart program if value error
+            
+
 interface()
